@@ -1,0 +1,119 @@
+ body{
+     font-family: "Source Sans Pro",Arial,Sans-Serif;
+}
+.main-header{
+     background-color: #6699cc;
+}
+.menu{
+     margin-right: 10px;
+}
+ .header{
+     margin-top: 0px;
+     margin-left: 50px;
+     font-size: 25px;
+     text-transform: uppercase;
+     color: blue;
+     padding: 15px;
+     margin-bottom: 0px;
+     font-weight: 700;
+}
+.header-for-small{
+     margin-top: 0px;
+     font-size: 20px;
+     font-weight:bold;
+     text-transform: uppercase;
+     color: blue;
+     padding: 15px;
+     font-family: fontawesome;
+     margin-bottom: 0px;
+}
+ h3{
+     margin-top: 5px;
+}
+.menu-list{
+     text-decoration: none;
+}
+ #slide{
+     border-top-right-radius: 10px;
+     border-top-left-radius: 10px;
+     border-bottom-right-radius: 10px;
+     border-bottom-left-radius: 10px;
+     width: 100%;
+     box-shadow: 0px 20px 30px green;
+}
+.summary-of-computing-club{
+     margin:0 auto;
+     width: calc(50% - 2px);
+     margin-top: 100px;
+     margin-bottom: 100px;
+}
+.summary-of-computing-club p{
+     font-size: 25px;
+}
+.contact-title{
+     text-align: center;
+     text-decoration: underline;
+}
+.address{
+     display: 0 auto;
+}
+.remove-underline .underline{
+     text-decoration: none;
+}
+ .social-media{
+     background-color: #f0f5f5;
+     padding: 5px;
+     text-align: center;
+}
+.message{
+     margin-top: 60px;
+}
+.team-members{
+     margin-top: 520px;
+}
+.teammembers{
+     margin-top: 385px;
+}
+.message-s{
+     margin:0 auto;
+     width: 60%;
+}
+.push-up-down{
+     margin-top: 20px;
+     margin-bottom: 60px;
+}
+.merge{
+     margin-top: 0px;
+}
+.info{
+     margin:15px;
+     padding: 15px;
+     background-color: lightgrey;
+}
+.programs-content{
+     text-align: center;
+     list-style-position: inside;
+     margin-top: 15px;
+}
+.programs-content .im-age{
+     width: 40%;
+     height: 200px;
+     border: 1px solid black;
+}
+.test{
+     padding-left: 0px;
+     padding-right: 0px;
+}
+.professor{
+     margin-top: 60px;
+}
+.border tr th, .border tr td{
+     text-align: center;
+     border-right: 1px solid #CDCDCD;
+}
+.image-background{
+     background-image: url("../image/team-members.jpg");
+     background-repeat: no-repeat;
+     background-size: 100%;
+     height: 500px;
+}

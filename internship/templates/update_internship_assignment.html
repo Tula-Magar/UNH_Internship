@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>Update Internship Assignments</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="initial-scale=1">
+      <link rel="stylesheet" type="text/css" href="{% static 'computingclub.css' %}" />
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source Sans Pro">
+      <style type="text/css">
+         #show-list a{
+            display: block;
+         }
+      	a {
+		text-decoration: none;
+	}
+	</style>
+</head>
+
+<body>
+	<section class="w3-hide-small main-header" style="background-color:#6699cc">
+		<h1 class="header"> Welcome to computing internships: {{user.username}} </h1> {% if request.user.groups.all|first|stringformat:"s" == "Internship Coordinator" %}
+		<div class="w3-bar w3-blue">
+			<a href="{% url 'home' %}">
+				<button class="w3-hover-light-blue w3-button w3-bar-item">Home</button>
+			</a>
+			<a href="{% url 'upload' %}">
+				<button class=" w3-hover-light-blue w3-button w3-bar-item">Upload File</button>
+			</a>
+			<a>
+				<form method="post" enctype="multipart/form-data"> {% csrf_token %}
+					<button class="w3-hover-light-blue w3-button w3-bar-item w3-blue">Add <i class="far fa-plus-square"></i></button>
+					<input type="hidden" name="RowData" value="RowData"> </form>
+			</a>
+			<div class="w3-dropdown-hover ">
+				<button class="w3-button w3-blue">Menu</button>
+				<nav class="w3-blue w3-dropdown-content w3-bar-block w3-border">
+					<a href="{% url 'students' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Students</button>
+					</a>
+					<a href="{% url 'internships' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Internships</button>
+					</a>
+					<a href="{% url 'internship_assignments' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Internship Assignments</button>
+					</a>
+				</nav>
+			</div>
+			<a href="{% url 'logout' %}">
+				<button class="w3-hover-light-blue w3-button w3-bar-item">Logout</button>
+			</a>
+		</div> {% else %}
+		<div class="w3-bar w3-blue">
+			<a href="{% url 'home' %}">
+				<button class="w3-hover-light-blue w3-button w3-bar-item">Home</button>
+			</a>
+			<div class="w3-dropdown-hover ">
+				<button class="w3-button w3-blue">Menu</button>
+				<nav class="w3-blue w3-dropdown-content w3-bar-block w3-border">
+					<a href="{% url 'students' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Students</button>
+					</a>
+					<a href="{% url 'internships' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Internships</button>
+					</a>
+					<a href="{% url 'internship_assignments' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Internship Assignments</button>
+					</a>
+				</nav>
+			</div>
+			<a href="{% url 'logout' %}">
+				<button class="w3-hover-light-blue w3-button w3-bar-item">Logout</button>
+			</a> {% endif %} </section>
+	<section class="w3-show-small w3-hide-medium w3-hide-large main-header" style="background-color:#6699cc">
+		<h1 class="w3-center header-for-small"> Welcome to <br/>computing internships: {{user.username}} </h1> {% if request.user.groups.all|first|stringformat:"s" == "Internship Coordinator" %}
+		<div class="w3-bar w3-blue">
+			<a href="{% url 'home' %}">
+				<button class="w3-hover-light-blue w3-button w3-bar-item">Home</button>
+			</a>
+			<a href="{% url 'upload' %}">
+				<button class=" w3-hover-light-blue w3-button w3-bar-item">Upload File</button>
+			</a>
+			<a>
+				<form method="post" enctype="multipart/form-data"> {% csrf_token %}
+					<button class="w3-hover-light-blue w3-button w3-bar-item w3-blue">Add <i class="far fa-plus-square"></i></button>
+					<input type="hidden" name="row_data" value="row_data"> </form>
+			</a>
+			<div class="w3-dropdown-hover ">
+				<button class="w3-button w3-blue">Menu</button>
+				<nav class="w3-blue w3-dropdown-content w3-bar-block w3-border">
+					<a href="{% url 'students' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Students</button>
+					</a>
+					<a href="{% url 'internships' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Internships</button>
+					</a>
+					<a href="{% url 'internship_assignments' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Internship Assignments</button>
+					</a>
+				</nav>
+			</div>
+			<a href="{% url 'logout' %}">
+				<button class="w3-hover-light-blue w3-button w3-bar-item">Logout</button>
+			</a>
+		</div> {% else %}
+		<div class="w3-bar w3-blue">
+			<a href="{% url 'home' %}">
+				<button class="w3-hover-light-blue w3-button w3-bar-item">Home</button>
+			</a>
+			<div class="w3-dropdown-hover ">
+				<button class="w3-button w3-blue">Menu</button>
+				<nav class="w3-blue w3-dropdown-content w3-bar-block w3-border">
+					<a href="{% url 'students' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Students</button>
+					</a>
+					<a href="{% url 'internships' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Internships</button>
+					</a>
+					<a href="{% url 'internship_assignments' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Internship Assignments</button>
+					</a>
+				</nav>
+			</div>
+			<a href="{% url 'logout' %}">
+				<button class="w3-hover-light-blue w3-button w3-bar-item">Logout</button>
+			</a> {% endif %} </section>
+
+      <div class="summary-of-computing-club">
+             <h1>Edit Internship Assignment</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Student ID:</label>
+                <input type="text" name="student_id" value="{{internship_assignments.0}}" readonly><br>
+                <label>Internship ID:</label>
+                <input type="text" name="internship_id" value="{{internship_assignments.1}}" readonly><br>
+                <label>Course ID:</label>
+                <input type="text" name="course_id" value="{{internship_assignments.2}}"><br>
+                <label>Credits:</label>
+                <input type="text" name="credits" value="{{internship_assignments.3}}"><br>
+                <label>Semester:</label>
+                <input type="text" name="semester" value="{{internship_assignments.4}}"><br>
+                <label>Year:</label>
+                <input type="text" name="year" value="{{internship_assignments.5}}"><br>
+                <label>Instructor:</label>
+                <input type="text" name="instructor" value="{{internship_assignments.6}}"><br>
+                <label>Start Date:</label>
+                <input type="text" name="start_date" value="{{internship_assignments.7}}"><br>
+                <label>End Date:</label>
+                <input type="text" name="end_date" value="{{internship_assignments.8}}"><br>
+                <input type="submit" value="Update" name="finalize">
+            </form>
+      </div>
+      <section class="w3-container w3-row-padding w3-black w3-text-white" id="loction">
+         <h1 class="contact-title"> Location </h1>
+         <address class="w3-center address">
+            <address class="w3-half remove-underline">
+               <p>UNH at Manchester <br/>
+                  88 Commercial Street <br/>
+                  Manchester, NH 03101
+               </p>
+               <a class="underline" href="mailto:tmagar448@gmail.com"> Email: []@wildcats.unh.edu</a><br>
+               <a class="underline" href="number"> phone: (603) 112 2312</a> <br/>
+            </address>
+            <address class="w3-half">
+                <iframe src="https://www.google.com/maps/embed?pb=!4v1574452060428!6m8!1m7!1senO4tZ4ASN58AZ7Jx8JJPw!2m2!1d42.98717278903091!2d-71.46830481937242!3f251.65339606318383!4f-2.886563822992997!5f0.7820865974627469" width="400" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+            </address>
+         </address>
+      </section>
+      <footer class="social-media">
+         <h2>Follow us on social media</h2>
+         <hr />
+         <a href="https://www.facebook.com/"><i class="fab fa-facebook-square fa-2x" > </i> </a>
+         <a href="https://twitter.com/login?lang=en"><i class="fab fa-twitter-square fa-2x"></i></a>
+         <a href="https://www.instagram.com/"><i class="fab fa-instagram fa-2x"></i></a>
+         <p class="w3-medium">Powered by <a href="http://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+      </footer>
+
+   </body>
+</html>

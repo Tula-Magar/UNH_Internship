@@ -1,0 +1,246 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>View Internship Assignments</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{% static 'computingclub.css' %}" />
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source Sans Pro">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+	<script>
+	$(document).ready(function() {
+		$('#myTable').DataTable({
+			"order": []
+		});
+	});
+	</script>
+	<style>
+	table {
+		border-collapse: collapse;
+		border-spacing: 0;
+		width: 100%;
+		border: 1px solid #ddd;
+	}
+
+	th,
+	td {
+		text-align: left;
+		padding: 8px;
+		border: 1px solid black;
+	}
+
+	tr:nth-child(even) {
+		background-color: #f2f2f2
+	}
+
+	a {
+		text-decoration: none;
+	}
+	</style>
+</head>
+
+<body> {% load static %} {% block content %}
+	<section class="w3-hide-small main-header" style="background-color:#6699cc">
+		<h1 class="header"> Welcome to computing internships: {{user.username}} </h1> {% if request.user.groups.all|first|stringformat:"s" == "Internship Coordinator" %}
+		<div class="w3-bar w3-blue">
+			<a href="{% url 'home' %}">
+				<button class="w3-hover-light-blue w3-button w3-bar-item">Home</button>
+			</a>
+			<a href="{% url 'upload' %}">
+				<button class=" w3-hover-light-blue w3-button w3-bar-item">Upload File</button>
+			</a>
+			<a>
+				<form method="post" enctype="multipart/form-data"> {% csrf_token %}
+					<button class="w3-hover-light-blue w3-button w3-bar-item w3-blue">Add <i class="far fa-plus-square"></i></button>
+					<input type="hidden" name="internship_assignment" value="internship_assignment"> </form>
+			</a>
+			<div class="w3-dropdown-hover ">
+				<button class="w3-button w3-blue">Menu</button>
+				<nav class="w3-blue w3-dropdown-content w3-bar-block w3-border">
+					<a href="{% url 'students' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Students</button>
+					</a>
+					<a href="{% url 'internships' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Internships</button>
+					</a>
+					<a href="{% url 'internship_assignments' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Internship Assignments</button>
+					</a>
+				</nav>
+			</div>
+			<a href="{% url 'logout' %}">
+				<button class="w3-hover-light-blue w3-button w3-bar-item">Logout</button>
+			</a>
+		</div> {% else %}
+		<div class="w3-bar w3-blue">
+			<a href="{% url 'home' %}">
+				<button class="w3-hover-light-blue w3-button w3-bar-item">Home</button>
+			</a>
+			<div class="w3-dropdown-hover ">
+				<button class="w3-button w3-blue">Menu</button>
+				<nav class="w3-blue w3-dropdown-content w3-bar-block w3-border">
+					<a href="{% url 'students' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Students</button>
+					</a>
+					<a href="{% url 'internships' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Internships</button>
+					</a>
+					<a href="{% url 'internship_assignments' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Internship Assignments</button>
+					</a>
+				</nav>
+			</div>
+			<a href="{% url 'logout' %}">
+				<button class="w3-hover-light-blue w3-button w3-bar-item">Logout</button>
+			</a> {% endif %} </section>
+	<section class="w3-show-small w3-hide-medium w3-hide-large main-header" style="background-color:#6699cc">
+		<h1 class="w3-center header-for-small"> Welcome to <br/>computing internships: {{user.username}} </h1> {% if request.user.groups.all|first|stringformat:"s" == "Internship Coordinator" %}
+		<div class="w3-bar w3-blue">
+			<a href="{% url 'home' %}">
+				<button class="w3-hover-light-blue w3-button w3-bar-item">Home</button>
+			</a>
+			<a href="{% url 'upload' %}">
+				<button class=" w3-hover-light-blue w3-button w3-bar-item">Upload File</button>
+			</a>
+			<a>
+				<form method="post" enctype="multipart/form-data"> {% csrf_token %}
+					<button class="w3-hover-light-blue w3-button w3-bar-item w3-blue">Add <i class="far fa-plus-square"></i></button>
+					<input type="hidden" name="student" value="student"> </form>
+			</a>
+			<div class="w3-dropdown-hover ">
+				<button class="w3-button w3-blue">Menu</button>
+				<nav class="w3-blue w3-dropdown-content w3-bar-block w3-border">
+					<a href="{% url 'students' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Students</button>
+					</a>
+					<a href="{% url 'internships' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Internships</button>
+					</a>
+					<a href="{% url 'internship_assignments' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Internship Assignments</button>
+					</a>
+				</nav>
+			</div>
+			<a href="{% url 'logout' %}">
+				<button class="w3-hover-light-blue w3-button w3-bar-item">Logout</button>
+			</a>
+		</div> {% else %}
+		<div class="w3-bar w3-blue">
+			<a href="{% url 'home' %}">
+				<button class="w3-hover-light-blue w3-button w3-bar-item">Home</button>
+			</a>
+			<div class="w3-dropdown-hover ">
+				<button class="w3-button w3-blue">Menu</button>
+				<nav class="w3-blue w3-dropdown-content w3-bar-block w3-border">
+					<a href="{% url 'students' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Students</button>
+					</a>
+					<a href="{% url 'internships' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Internships</button>
+					</a>
+					<a href="{% url 'internship_assignments' %}">
+						<button class="w3-hover-light-blue w3-button w3-bar-item">View Internship Assignments</button>
+					</a>
+				</nav>
+			</div>
+			<a href="{% url 'logout' %}">
+				<button class="w3-hover-light-blue w3-button w3-bar-item">Logout</button>
+			</a> {% endif %} </section>
+	<div style="overflow-x:auto; margin-top: 10px;">
+		<table class="w3-table" id="myTable"> {% if request.user.groups.all|first|stringformat:"s" == "Internship Coordinator" %}
+			<thead>
+				<th>Student ID</th>
+				<th>Internship ID</th>
+				<th>Course ID</th>
+				<th>Credits</th>
+				<th>Semester</th>
+				<th>Year</th>
+				<th>Instructor</th>
+				<th>Start Date</th>
+				<th>End Date</th>
+				<th>Update</th>
+				<th>Delete</th>
+			</thead> {% else %}
+			<thead>
+				<th>Student ID</th>
+				<th>Internship ID</th>
+				<th>Course ID</th>
+				<th>Credits</th>
+				<th>Semester</th>
+				<th>Year</th>
+				<th>Instructor</th>
+				<th>Start Date</th>
+				<th>End Date</th>
+				<th style="display: none;">Update</th>
+				<th style="display: none;">Delete</th>
+			</thead> {% endif %}
+			<tbody> {% if request.user.groups.all|first|stringformat:"s" == "Internship Coordinator" %} {% for internship_assignment in internship_assignments %}
+				<tr>
+					<td>{{internship_assignment.0}}</td>
+					<td>{{internship_assignment.1}}</td>
+					<td>{{internship_assignment.2}}</td>
+					<td>{{internship_assignment.3}}</td>
+					<td>{{internship_assignment.4}}</td>
+					<td>{{internship_assignment.5}}</td>
+					<td>{{internship_assignment.6}}</td>
+					<td>{{internship_assignment.7}}</td>
+					<td>{{internship_assignment.8}}</td>
+					<form method="post" enctype="multipart/form-data"> {% csrf_token %}
+						<td>
+							<input type="submit" value="Update" name="update">
+						</td>
+						<input type="hidden" name="student_id" value="{{internship_assignment.0}}">
+						<input type="hidden" name="internship_id" value="{{internship_assignment.1}}">
+						<input type="hidden" name="course_id" value="{{internship_assignment.2}}">
+						<input type="hidden" name="credits" value="{{internship_assignment.3}}">
+						<input type="hidden" name="semester" value="{{internship_assignment.4}}">
+						<input type="hidden" name="year" value="{{internship_assignment.5}}">
+						<input type="hidden" name="instructor" value="{{internship_assignment.6}}">
+						<input type="hidden" name="start_date" value="{{internship_assignment.7}}">
+						<input type="hidden" name="end_date" value="{{internship_assignment.8}}"> </form>
+					<form method="post" enctype="multipart/form-data"> {% csrf_token %}
+						<td>
+							<input type="submit" value="Delete" name="delete">
+						</td>
+						<input type="hidden" name="id" value="{{internship_assignment.0}}"> </form>
+				</tr> {% endfor %} {% else %} {% for internship_assignment in internship_assignments %}
+				<tr>
+					<td>{{internship_assignment.0}}</td>
+					<td>{{internship_assignment.1}}</td>
+					<td>{{internship_assignment.2}}</td>
+					<td>{{internship_assignment.3}}</td>
+					<td>{{internship_assignment.4}}</td>
+					<td>{{internship_assignment.5}}</td>
+					<td>{{internship_assignment.6}}</td>
+					<td>{{internship_assignment.7}}</td>
+					<td>{{internship_assignment.8}}</td>
+					<form method="post" enctype="multipart/form-data"> {% csrf_token %}
+						<td style="display: none;">
+							<input type="submit" value="Update" name="update">
+						</td>
+						<input type="hidden" name="student_id" value="{{internship_assignment.0}}">
+						<input type="hidden" name="internship_id" value="{{internship_assignment.1}}">
+						<input type="hidden" name="course_id" value="{{internship_assignment.2}}">
+						<input type="hidden" name="credits" value="{{internship_assignment.3}}">
+						<input type="hidden" name="semester" value="{{internship_assignment.4}}">
+						<input type="hidden" name="year" value="{{internship_assignment.5}}">
+						<input type="hidden" name="instructor" value="{{internship_assignment.6}}">
+						<input type="hidden" name="start_date" value="{{internship_assignment.7}}">
+						<input type="hidden" name="end_date" value="{{internship_assignment.8}}"> </form>
+					<form method="post" enctype="multipart/form-data"> {% csrf_token %}
+						<td style="display: none;">
+							<input type="submit" value="Delete" name="delete">
+						</td>
+						<input type="hidden" name="id" value="{{internship_assignment.0}}"> </form>
+				</tr> {% endfor %} {% endif %} </tbody>
+		</table>
+	</div> {% endblock content %} </body>
+
+</html>
